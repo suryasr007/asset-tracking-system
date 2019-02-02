@@ -6,4 +6,8 @@ router.get('/', function(req, res, next) {
   res.render('registration');
 });
 
+router.post('/', (req, res, next)=>{
+  res.send(req.body);
+});
+
 module.exports = router;

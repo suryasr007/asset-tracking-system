@@ -1,14 +1,22 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 const expressLayouts = require('express-ejs-layouts');
+const mongoose = require('mongoose');
 
 var loginRouter = require('./components/users/login');
 var registrationRouter = require('./components/users/registration');
 
 var app = express();
+
+
+// db
+const db = require("./config/keys").MongoURI
+mongoose.connect(db,{ useNewUrlParser: true })
+    .then(()=>console.log("Mongo DB connected"))
+    .catch(err=>console.log(err));
 
 
 // view engine setup

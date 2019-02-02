@@ -4,11 +4,5 @@ $(document).ready(function() {
 
   function initialize() {
     var input = document.getElementById("address");
-    var autocomplete = new google.maps.places.Autocomplete(input);
-    autocomplete.setFields([
-      "address_components",
-      "geometry",
-      "icon",
-      "name"
-    ]);
+    var autocomplete = new google.maps.places.Autocomplete(input, {types: ['(cities)']});
   }
