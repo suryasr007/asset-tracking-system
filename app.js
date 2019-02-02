@@ -1,13 +1,15 @@
-const createError = require('http-errors');
-const express = require('express');
 const path = require('path');
-const cookieParser = require('cookie-parser');
-const logger = require('morgan');
-const expressLayouts = require('express-ejs-layouts');
+const express = require('express');
 const mongoose = require('mongoose');
 const flash = require('connect-flash');
 const session = require('express-session');
+const createError = require('http-errors');
+const cookieParser = require('cookie-parser');
+const expressLayouts = require('express-ejs-layouts');
+// const logger = require('morgan');
 
+
+//Routes
 var loginRouter = require('./components/users/login');
 var registrationRouter = require('./components/users/registration');
 
@@ -27,7 +29,7 @@ app.use(expressLayouts);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-app.use(logger('dev'));
+// app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -41,7 +43,6 @@ app.use(
     saveUninitialized: true
   })
 );
-
 
 // Connect flash
 app.use(flash());
