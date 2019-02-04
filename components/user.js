@@ -5,14 +5,14 @@ const passport = require('passport');
 
 
 //Models
-const User = require('../../models/User');
+const User = require('../models/User');
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/register', function(req, res, next) {
   res.render('registration');
 });
 
-router.post('/', (req, res, next)=>{
+router.post('/register', (req, res, next)=>{
   const { name, email, password, password2, address, mobile, type } = req.body;
   let errors = [];
 
@@ -66,7 +66,7 @@ router.post('/', (req, res, next)=>{
                     'success_msg',
                     'You are now registered and can log in'
                   );
-                  res.redirect('/');
+                  res.redirect('/user/login');
                 })
                 .catch(err => console.log(err));
             });
@@ -75,5 +75,26 @@ router.post('/', (req, res, next)=>{
       })
   }
 });
+
+router.get('/login', function(req, res, next) {
+    res.render('login');
+});
+  
+
+router.post('/login', (req, res, next) => {
+  passport.authenticate('local', {
+    successRedirect: '/dashboard',
+    failureRedirect: '/user/login',
+    failureFlash: true
+  })(req, res, next);
+});
+
+// Logout
+router.get('/logout', (req, res) => {
+  req.logout();
+  req.flash('success_msg', 'You are logged out');
+  res.redirect('/user/login');
+});
+
 
 module.exports = router;
