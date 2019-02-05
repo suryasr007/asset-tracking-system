@@ -3,10 +3,10 @@ var router = express.Router();
 const { ensureAuthenticated } = require('../config/auth');
 
 router.get('/', ensureAuthenticated, (req, res) =>
-  res.render('dashboard', {
-    user: req.user
-  })
+  res.render('dashboard', { layout: 'layouts/welcome-layout', user: req.user })
+  // res.send({user: req.user})
 );
+
 
 
 module.exports = router;

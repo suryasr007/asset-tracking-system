@@ -60,8 +60,8 @@ app.use("/user", require("./components/user"));
 app.use("/dashboard", require("./components/dashboard"));
 
 app.get("/", (req, res) => res.send("welcome page"));
-app.get("/about", (req, res) => res.render("about"));
-app.get("/contact", (req, res) => res.render("contact"));
+app.get("/about", (req, res) => res.render("static/about", { layout: 'layouts/welcome-layout' }));
+app.get("/contact", (req, res) => res.render("static/contact", { layout: 'layouts/welcome-layout' }));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -76,7 +76,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render("error");
+  res.render("static/error", { layout: 'layouts/welcome-layout' });
 });
 
 module.exports = app;
