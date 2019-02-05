@@ -56,12 +56,16 @@ app.use(function(req, res, next) {
 });
 
 
-app.use("/user", require("./components/user"));
-app.use("/dashboard", require("./components/dashboard"));
-
+//Static Routes
 app.get("/", (req, res) => res.send("welcome page"));
 app.get("/about", (req, res) => res.render("static/about", { layout: 'layouts/welcome-layout' }));
 app.get("/contact", (req, res) => res.render("static/contact", { layout: 'layouts/welcome-layout' }));
+
+//Dynamic routes
+app.use("/user", require("./components/user"));
+app.use("/dashboard", require("./components/dashboard"));
+app.use("/manufacturer", require("./components/manufacturer"));
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
