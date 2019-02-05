@@ -20,7 +20,7 @@
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" id="menu-toggle">
         <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>
       </button>
-      <a class="navbar-brand" href="#"><i class="fa fa-rocket fa-4"></i> M-33</a>
+      <a class="navbar-brand" href="#"><i class="fa fa-industry fa-4"></i> <%= user.type %></a>
     </div>
     <!-- navbar-header-->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -39,7 +39,6 @@
       <div class="container-fluid xyz">
         <p class="lead mb-3">Welcome <%= user.name %></p>
         <p class="lead mb-3">You are a <%= user.type %> from <%= user.address %></p>
-        <a href="/user/logout" class="btn btn-secondary">Logout</a>
       </div>
     </div>
   </div>
