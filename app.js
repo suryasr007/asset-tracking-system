@@ -13,6 +13,7 @@ var app = express();
 
 require('./config/passport')(passport);
 
+app.use('/public', express.static(__dirname + "/public"));
 // db
 const db = require("./config/keys").MongoURI;
 mongoose
@@ -22,10 +23,9 @@ mongoose
 
 // view engine setup
 // EJS
-app.use(expressLayouts);
-app.use('/public', express.static(__dirname + 'public'))
-app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
+app.use(expressLayouts);
+app.set("views", path.join(__dirname, "views"));
 
 // app.use(logger('dev'));
 // app.use(express.json());
