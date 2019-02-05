@@ -23,6 +23,7 @@ mongoose
 // view engine setup
 // EJS
 app.use(expressLayouts);
+app.use('/public', express.static(__dirname + 'public'))
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
@@ -54,7 +55,6 @@ app.use(function(req, res, next) {
   next();
 });
 
-// app.use('/public', express.static('/public'))
 
 app.use("/user", require("./components/user"));
 app.use("/dashboard", require("./components/dashboard"));
