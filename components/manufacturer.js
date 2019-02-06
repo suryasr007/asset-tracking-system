@@ -2,6 +2,12 @@ const express = require('express');
 const fileUpload = require('express-fileupload');
 const router = express.Router();
 
+
+//Models
+const Part = require('../models/Part');
+const User = require('../models/User');
+
+
 // default options
 // Max size one mb
 router.use(fileUpload({
@@ -18,18 +24,62 @@ router.get('/create_request', ensureAuthenticated, (req, res, next) =>
 );
 
 router.post('/create_request', ensureAuthenticated, (req, res, next) =>{
-  console.log(req.body);
-  console.log(req.user);
-  if (Object.keys(req.files).length != 0) {
-    let file = req.files.manufacturer_attachments;
-    console.log(file);    
-    file.mv('uploads/'+file.name, function(err) {
-    if (err)
-      return res.status(500).send(err);
-    });
-  }
+  const {part_name, part_number, supplier_name, supplier_email, supplier_address, supplier_mobile } = req.body;
+  let file_upload_path = null;
+  let errors = [];
 
-  res.send('ok');
-});
+  User.findOne({ email: supplier_email, type:'supplier' })
+    .then((user)=>{
+      if(!user){
+        errors.push('Supplier is not registered');
+      }
+      if (Object.keys(req.files).length != 0) {
+        let file = req.files.manufacturer_attachments;
+        console.log(file);    
+        file_upload_path = 'uploads/'+file.name + Date.now()
+        file.mv(file_upload_path, function(err) {
+        if (err)
+          errors.push('Unable to upload file');
+          console.log(err);
+        });
+      }
+      // If any errors render error page
+      if(errors.length > 0){
+        res.render('forms/manufacturer-request-form', 
+          { layout: 'layouts/dashboard-layout', 
+            errors:errors, 
+            user: req.user,
+            part_name, 
+            part_number, 
+            supplier_name, 
+            supplier_email, 
+            supplier_address, 
+            supplier_mobile })
+      }
+
+      const newPart = new Part({
+        part_name, 
+        part_number,
+        manufacturer_id: req.user._id, 
+        supplier_name, 
+        supplier_email, 
+        supplier_address, 
+        supplier_mobile,
+        uploaded_file_path: file_upload_path
+      });
+
+      newPart.save()
+        .then((part) => {
+            req.flash(
+              'success_msg',
+              'Part has been successfully registered'
+            );
+          res.redirect('/manufacturer/create_request')
+        })
+        .catch(err => {throw err});
+    })
+    .catch((err)=> {throw err})
+  });
+
 
 module.exports = router;
