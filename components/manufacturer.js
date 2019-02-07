@@ -94,4 +94,22 @@ router.post("/create_request", ensureAuthenticated, (req, res, next) => {
     });
 });
 
+
+router.get("/view_requests", ensureAuthenticated, (req, res, next) =>
+
+  // Get all records the database
+  Part.find({manufacturer_id: req.user._id})
+    .then((docs)=>{
+      res.render("view-requests", {
+        layout: "layouts/dashboard-layout",
+        user: req.user,
+        records: docs
+      })
+    })
+    .catch((err)=>{
+      console.log(err);
+    })
+)
+
+
 module.exports = router;
