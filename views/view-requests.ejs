@@ -5,6 +5,7 @@
             <th>Part Name</th>
             <th>Supplier</th>
             <th>Current Status</th>
+            <th>Delete</th>
         </tr>
         <% records.forEach((record)=>{ %>
         <tr>
@@ -12,6 +13,7 @@
             <td><%= record.part_name %> </td>
             <td><%= record.supplier_name %> </td>
             <td><%= record.supplier_acceptance %> </td>
+            <td><a class="btn btn-raised btn-danger" href="/manufacturer/requests/delete/<%= record._id %>">Delete</a></td> 
         </tr>
         <% }); %>
     </table>    

@@ -33,8 +33,8 @@ const PartSchema = new mongoose.Schema({
     default: null
   },
   supplier_acceptance:{
-    type:Boolean,
-    default: false
+    type: String,
+    default: "pending"
   },
   total_bill_value:{
     type: String,

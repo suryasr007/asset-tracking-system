@@ -2,6 +2,7 @@ const express = require("express");
 const fileUpload = require("express-fileupload");
 const router = express.Router();
 
+
 //Models
 const Part = require("../models/Part");
 const User = require("../models/User");
@@ -111,5 +112,14 @@ router.get("/view_requests", ensureAuthenticated, (req, res, next) =>
     })
 )
 
+router.get("/requests/delete/:recordId", ensureAuthenticated, (req, res, next)=>{
+  Part.findByIdAndRemove(req.params.recordId, (err, record)=>{
+    if (err){
+      req.flash("error_msg", "Unable to delete requested delete. Please try again later.");
+      res.redirect("/manufacturer/view_requests");
+    }
+    res.redirect("/manufacturer/view_requests");
+  });
+});
 
 module.exports = router;
