@@ -112,6 +112,24 @@ router.get("/view_requests", ensureAuthenticated, (req, res, next) =>
     })
 )
 
+router.get("/requests/:recordId", ensureAuthenticated, (req, res, next)=>{
+  Part.findById(req.params.recordId, (err, record)=>{
+    if (err){
+      req.flash("error_msg", "Unable to fetch the record. Please try again later.");
+      console.log(err);      
+      res.redirect("/manufacturer/view_requests");
+    }
+    res.render("requests/manufacturer", {
+      layout: "layouts/dashboard-layout",
+      user: req.user,
+      record
+    });
+  });
+});
+
+
+
+
 router.get("/requests/delete/:recordId", ensureAuthenticated, (req, res, next)=>{
   Part.findByIdAndRemove(req.params.recordId, (err, record)=>{
     if (err){
