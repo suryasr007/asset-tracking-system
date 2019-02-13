@@ -65,6 +65,7 @@ app.get("/contact", (req, res) => res.render("static/contact", { layout: 'layout
 app.use("/user", require("./components/user"));
 app.use("/dashboard", require("./components/dashboard"));
 app.use("/manufacturer", require("./components/manufacturer"));
+app.use("/map_view", require("./components/map_view"));
 
 
 // catch 404 and forward to error handler
