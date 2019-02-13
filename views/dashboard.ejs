@@ -1,2 +1,6 @@
 <h1 class="mt-4"> Welcome <%= user.name %></h1>
-<p class="lead mb-3">You can add requests by clicking 'Create Request' in sidebar</p>
+<% if(user.type != "supplier") {%>
+    <p class="lead mb-3">You can add requests by clicking 'Create Request' in sidebar</p>
+<%}else{%>
+    <p class="lead mb-3">You can view requests by clicking 'View/Submit requests' in sidebar</p>
+<%}%>
