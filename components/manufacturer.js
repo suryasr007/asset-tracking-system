@@ -101,7 +101,7 @@ router.get("/view_requests", ensureAuthenticated, (req, res, next) =>
   // Get all records the database
   Part.find({manufacturer_id: req.user._id})
     .then((docs)=>{
-      res.render("view-requests", {
+      res.render("view-requests/manufacturer", {
         layout: "layouts/dashboard-layout",
         user: req.user,
         records: docs
@@ -119,7 +119,7 @@ router.get("/requests/:recordId", ensureAuthenticated, (req, res, next)=>{
       console.log(err);      
       res.redirect("/manufacturer/view_requests");
     }
-    res.render("requests/manufacturer", {
+    res.render("request-details/manufacturer", {
       layout: "layouts/dashboard-layout",
       user: req.user,
       record
