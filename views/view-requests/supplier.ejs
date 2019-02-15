@@ -7,6 +7,7 @@
             <th>Part Name</th>
             <th>Requestor ID</th>
             <th>Download Attachments</th>
+            <th>Approval</th>
         </tr>
         <% records.forEach((record)=>{ %>
         <tr>
@@ -18,6 +19,7 @@
             <%}else{%>
                 <td>-</td>
             <%}%>
+            <td><a class="btn btn-success" href="/supplier/<%= record._id %>/approved">Approve</a> <a class="btn btn-danger" href="/supplier/<%= record._id %>/rejected">Reject</a> </td>
         </tr>
         <% }); %>
     </table>
