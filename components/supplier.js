@@ -24,7 +24,7 @@ router.get('/all_requests', ensureAuthenticated, (req, res, next)=>{
   // Get all records the database
   Part.find({supplier_email:req.user.email})
     .then((docs)=>{
-      res.render("view-requests/manufacturer", {
+      res.render("view-requests/supplier-all", {
         layout: "layouts/dashboard-layout",
         user: req.user,
         records: docs

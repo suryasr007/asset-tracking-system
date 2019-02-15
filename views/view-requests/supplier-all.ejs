@@ -6,7 +6,7 @@
             <th>Part Name</th>
             <th>Manufacturer id</th>
             <th>Status</th>
-            <th>BOM Access</th>
+            <th>BOM</th>
             <th>Delete</th>
         </tr>
         <% records.forEach((record)=>{ %>
@@ -17,15 +17,14 @@
             <td><%= record.supplier_acceptance %> </td>
             <td>
                 <% if(record.supplier_acceptance == "approved"){ %>
-                    <a href="#"> View BOM </a>
+                    <a href="#">BOM </a>
                 <%}else{%>
                     -
                 <%}%>
             </td>
-            <td><a class="btn btn-raised btn-danger" href="/manufacturer/requests/delete/<%= record._id %>">Delete</a></td> 
         </tr>
         <% }); %>
-    </table>    
+    </table>
 <% }else{ %>
     <div class="alert alert-warning alert-dismissible" role="alert">
         No records to display
