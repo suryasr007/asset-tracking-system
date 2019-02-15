@@ -47,8 +47,8 @@ router.post("/create_request", ensureAuthenticated, (req, res, next) => {
       if (Object.keys(req.files).length != 0) {
         let file = req.files.manufacturer_attachments;
         console.log(file);
-        file_upload_path = "uploads/" + Date.now() + file.name;
-        file.mv(file_upload_path, function(err) {
+        file_upload_path = Date.now() + file.name;
+        file.mv("uploads/" + file_upload_path, function(err) {
           if (err) errors.push("Unable to upload file");
           console.log(err);
         });

@@ -21,5 +21,16 @@ router.get('/active_requests', ensureAuthenticated, (req, res, next)=>{
     })
 })
 
+router.get('/download/:filename', ensureAuthenticated, (req, res, next)=>{
+    console.log('File Name:'+req.params.filename);
+    res.download("uploads/" + req.params.filename, (err)=>{
+        if(err){
+            console.log(err);
+            res.sendStatus(500);
+        }
+    });
+})
+
+
 
 module.exports = router;
