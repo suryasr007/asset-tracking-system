@@ -1,0 +1,33 @@
+<h2>All records</h2>
+<% if(records.length > 0){ %> 
+    <table class="table table-responsive">
+        <tr>
+            <th>Request ID</th>
+            <th>Part Name</th>
+            <th>Manufacturer id</th>
+            <th>Status</th>
+            <th>BOM Access</th>
+            <th>Delete</th>
+        </tr>
+        <% records.forEach((record)=>{ %>
+        <tr>
+            <td><%= record._id %></td>
+            <td><%= record.part_name %> </td>
+            <td><%= record.manufacturer_id %> </td>
+            <td><%= record.supplier_acceptance %> </td>
+            <td>
+                <% if(record.supplier_acceptance == "approved"){ %>
+                    <a href="#"> View BOM </a>
+                <%}else{%>
+                    -
+                <%}%>
+            </td>
+            <td><a class="btn btn-raised btn-danger" href="/manufacturer/requests/delete/<%= record._id %>">Delete</a></td> 
+        </tr>
+        <% }); %>
+    </table>    
+<% }else{ %>
+    <div class="alert alert-warning alert-dismissible" role="alert">
+        No records to display
+    </div>
+<% } %>
