@@ -13,7 +13,11 @@
             <td><%= record._id %></td>
             <td><%= record.part_name %> </td>
             <td><%= record.manufacturer_id %> </td>
-            <td><a href="/supplier/download/<%= record.uploaded_file_path %>">download</a></td>
+            <% if(record.uploaded_file_path != undefined ){%>
+                <td><a href="/supplier/download/<%= record.uploaded_file_path %>">download</a></td>
+            <%}else{%>
+                <td>-</td>
+            <%}%>
         </tr>
         <% }); %>
     </table>
