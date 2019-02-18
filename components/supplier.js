@@ -37,9 +37,6 @@ router.get('/all_requests', ensureAuthenticated, (req, res, next)=>{
 })
 
 
-
-
-
 router.get('/:record/:status', ensureAuthenticated, (req, res, next)=>{
 
     Part.findByIdAndUpdate(req.params.record, {supplier_acceptance: req.params.status})
@@ -48,7 +45,7 @@ router.get('/:record/:status', ensureAuthenticated, (req, res, next)=>{
         })
         .catch((err)=>{
             console.log(err);
-            res.redirect(500);
+            res.sendStatus(500);
         });
 });
 
@@ -61,8 +58,7 @@ router.get('/download/:filename', ensureAuthenticated, (req, res, next)=>{
             res.sendStatus(500);
         }
     });
-})
-
+});
 
 
 module.exports = router;

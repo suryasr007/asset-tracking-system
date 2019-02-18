@@ -7,7 +7,6 @@
             <th>Manufacturer id</th>
             <th>Status</th>
             <th>BOM</th>
-            <th>Delete</th>
         </tr>
         <% records.forEach((record)=>{ %>
         <tr>
@@ -17,7 +16,7 @@
             <td><%= record.supplier_acceptance %> </td>
             <td>
                 <% if(record.supplier_acceptance == "approved"){ %>
-                    <a href="#">BOM </a>
+                    <a href="/supplier/bom/<%= record._id %>">BOM </a>
                 <%}else{%>
                     -
                 <%}%>
