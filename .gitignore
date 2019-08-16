@@ -81,3 +81,6 @@ typings/
 
 # Password files
 keys.js
+
+# uploads
+uploads/

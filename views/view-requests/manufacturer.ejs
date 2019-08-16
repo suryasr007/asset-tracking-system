@@ -1,0 +1,25 @@
+<h2>All records</h2>
+<% if(records.length > 0){ %> 
+    <table class="table table-responsive">
+        <tr>
+            <th>Request ID</th>
+            <th>Part Name</th>
+            <th>Supplier</th>
+            <th>Current Status</th>
+            <th>Delete</th>
+        </tr>
+        <% records.forEach((record)=>{ %>
+        <tr>
+            <td><a href="/manufacturer/requests/<%= record._id %>"><%= record._id %></a> </td>
+            <td><%= record.part_name %> </td>
+            <td><%= record.supplier_name %> </td>
+            <td><%= record.supplier_acceptance %> </td>
+            <td><a class="btn btn-raised btn-danger" href="/manufacturer/requests/delete/<%= record._id %>">Delete</a></td> 
+        </tr>
+        <% }); %>
+    </table>    
+<% }else{ %>
+    <div class="alert alert-warning alert-dismissible" role="alert">
+        No records to display
+    </div>
+<% } %>

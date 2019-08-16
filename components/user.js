@@ -9,7 +9,7 @@ const User = require('../models/User');
 
 /* GET home page. */
 router.get('/register', function(req, res, next) {
-  res.render('registration');
+  res.render('forms/registration', { layout: 'layouts/welcome-layout' });
 });
 
 router.post('/register', (req, res, next)=>{
@@ -22,7 +22,7 @@ router.post('/register', (req, res, next)=>{
     errors.push({msg:'Passwords are not matching'});
 
   if(errors.length > 0){
-    res.render('registration', {
+    res.render('forms/registration', {
       errors,
       name, 
       email, 
@@ -37,7 +37,7 @@ router.post('/register', (req, res, next)=>{
       .then((user)=>{
         if(user){
           errors.push({msg:'An user already exists with this email'})
-          res.render('registration', {
+          res.render('forms/registration', {
             errors,
             name, 
             email, 
@@ -46,15 +46,15 @@ router.post('/register', (req, res, next)=>{
             address, 
             mobile, 
             type
-          })
+          }, { layout: 'layouts/welcome-layout' })
         }else{
           const newUser = new User({
             name,
-            email,
+            email: email.toLowerCase(),
             password,
             address, 
             mobile, 
-            type
+            type:type.toLowerCase()
           });
           bcrypt.genSalt(10, (err, salt) => {
             bcrypt.hash(newUser.password, salt, (err, hash) => {
@@ -77,7 +77,7 @@ router.post('/register', (req, res, next)=>{
 });
 
 router.get('/login', function(req, res, next) {
-    res.render('login');
+    res.render('forms/login', { layout: 'layouts/welcome-layout' });
 });
   
 

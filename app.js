@@ -13,6 +13,7 @@ var app = express();
 
 require('./config/passport')(passport);
 
+app.use('/public', express.static(__dirname + "/public"));
 // db
 const db = require("./config/keys").MongoURI;
 mongoose
@@ -22,9 +23,9 @@ mongoose
 
 // view engine setup
 // EJS
+app.set("view engine", "ejs");
 app.use(expressLayouts);
 app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "ejs");
 
 // app.use(logger('dev'));
 // app.use(express.json());
@@ -54,14 +55,19 @@ app.use(function(req, res, next) {
   next();
 });
 
-// app.use('/public', express.static('/public'))
 
+//Static Routes
+app.get("/", (req, res) => res.send("welcome page"));
+app.get("/about", (req, res) => res.render("static/about", { layout: 'layouts/welcome-layout' }));
+app.get("/contact", (req, res) => res.render("static/contact", { layout: 'layouts/welcome-layout' }));
+
+//Dynamic routes
 app.use("/user", require("./components/user"));
 app.use("/dashboard", require("./components/dashboard"));
+app.use("/manufacturer", require("./components/manufacturer"));
+app.use("/supplier", require("./components/supplier"));
+app.use("/map_view", require("./components/map_view"));
 
-app.get("/", (req, res) => res.send("welcome page"));
-app.get("/about", (req, res) => res.render("about"));
-app.get("/contact", (req, res) => res.render("contact"));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -76,7 +82,7 @@ app.use(function(err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500);
-  res.render("error");
+  res.render("static/error", { layout: 'layouts/welcome-layout' });
 });
 
 module.exports = app;

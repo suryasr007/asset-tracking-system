@@ -1,0 +1,30 @@
+<%#todo Have to work on this. %> 
+<h2>All records</h2>
+<% if(records.length > 0){ %> 
+    <table class="table table-responsive">
+        <tr>
+            <th>Request ID</th>
+            <th>Part Name</th>
+            <th>Requestor ID</th>
+            <th>Download Attachments</th>
+            <th>Approval</th>
+        </tr>
+        <% records.forEach((record)=>{ %>
+        <tr>
+            <td><%= record._id %></td>
+            <td><%= record.part_name %> </td>
+            <td><%= record.manufacturer_id %> </td>
+            <% if(record.uploaded_file_path != undefined ){%>
+                <td><a href="/supplier/download/<%= record.uploaded_file_path %>">download</a></td>
+            <%}else{%>
+                <td>-</td>
+            <%}%>
+            <td><a class="btn btn-success" href="/supplier/<%= record._id %>/approved">Approve</a> <a class="btn btn-danger" href="/supplier/<%= record._id %>/rejected">Reject</a> </td>
+        </tr>
+        <% }); %>
+    </table>
+<% }else{ %>
+    <div class="alert alert-warning alert-dismissible" role="alert">
+        No records to display
+    </div>
+<% } %>
